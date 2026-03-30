@@ -31,11 +31,11 @@ export default function Navbar() {
         transition={{ duration: 0.8, delay: 0.2, ease: [0.43, 0.13, 0.23, 0.96] }}
         className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 ${
           scrolled
-            ? 'bg-[#070c16]/62 backdrop-blur-2xl border-b border-[#c9a66b]/18 shadow-[0_10px_35px_rgba(0,0,0,0.45)]'
-            : 'bg-transparent border-b border-transparent'
+            ? 'bg-[#070c16]/75 backdrop-blur-2xl border-b border-[#c9a66b]/18 shadow-[0_4px_24px_rgba(0,0,0,0.55)]'
+            : 'bg-transparent border-b border-transparent shadow-none'
         }`}
       >
-        <div className="max-w-7xl mx-auto h-8 sm:h-16 px-2 sm:px-6 flex items-center justify-between gap-2">
+        <div className="max-w-7xl mx-auto h-10 sm:h-16 px-3 sm:px-6 flex items-center justify-between gap-2">
           {/* Logo */}
           <a href="#hjem" className="flex items-center gap-2 sm:gap-3 group">
             <motion.div
@@ -49,11 +49,11 @@ export default function Navbar() {
                   background: 'linear-gradient(145deg, #e8c547, #c9a66b, #6b4a1e)',
                 }}
               >
-                <div className="rounded-full p-[1px] sm:p-0.5 bg-[#0a0a0a] ring-1 ring-black/50">
+                <div className="rounded-full p-0.5 bg-[#0a0a0a] ring-1 ring-black/50">
                   <img
                     src={BRAND_LOGO_SRC}
                     alt="Old Sailor Barbershop"
-                    className="w-6 h-6 sm:w-10 sm:h-10 rounded-full object-cover block group-hover:brightness-110 transition-all"
+                    className="w-7 h-7 sm:w-10 sm:h-10 rounded-full object-cover block group-hover:brightness-110 transition-all"
                   />
                 </div>
               </div>
@@ -100,11 +100,11 @@ export default function Navbar() {
               type="button"
               aria-expanded={mobileOpen}
               aria-label={mobileOpen ? 'Lukk meny' : 'Åpne meny'}
-              className="lg:hidden min-w-[32px] min-h-[32px] sm:min-w-[40px] sm:min-h-[40px] flex items-center justify-center text-white/80 hover:text-[#c9a66b] transition-colors touch-manipulation -mr-0.5"
+              className="lg:hidden min-w-[40px] min-h-[40px] flex items-center justify-center text-white/80 hover:text-[#c9a66b] transition-colors touch-manipulation -mr-1"
               onClick={() => setMobileOpen(!mobileOpen)}
               whileTap={{ scale: 0.9 }}
             >
-              {mobileOpen ? <X className="w-4 h-4 sm:w-6 sm:h-6" /> : <Menu className="w-4 h-4 sm:w-6 sm:h-6" />}
+              {mobileOpen ? <X className="w-5 h-5 sm:w-6 sm:h-6" /> : <Menu className="w-5 h-5 sm:w-6 sm:h-6" />}
             </motion.button>
           </div>
         </div>
@@ -118,7 +118,7 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
-            className="fixed top-8 sm:top-16 left-0 right-0 z-[90] max-h-[min(70vh,calc(100dvh-3rem))] overflow-y-auto bg-[#0a0a0a]/98 backdrop-blur-xl border-b border-[#c9a66b]/10 lg:hidden pb-[env(safe-area-inset-bottom,0px)]"
+            className="fixed top-10 sm:top-16 left-0 right-0 z-[90] max-h-[min(70vh,calc(100dvh-3rem))] overflow-y-auto bg-[#0a0a0a]/98 backdrop-blur-xl border-b border-[#c9a66b]/10 lg:hidden pb-[env(safe-area-inset-bottom,0px)]"
           >
             <div className="flex flex-col px-6 py-6 gap-1">
               {navLinks.map((link, i) => (
