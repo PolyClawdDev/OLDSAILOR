@@ -184,7 +184,7 @@ export default function Hero() {
 
       {/* Main content — z-20; luft under fixed nav + safe area på mobil */}
       <motion.div
-        className="relative z-20 text-center px-4 sm:px-6 max-w-5xl mx-auto w-full pt-[max(4.5rem,calc(env(safe-area-inset-top,0px)+3.25rem))] pb-10 sm:pt-6 sm:pb-16"
+        className="relative z-20 text-center px-4 sm:px-6 max-w-5xl mx-auto w-full pt-[max(3.25rem,calc(env(safe-area-inset-top,0px)+2.35rem))] pb-10 sm:pt-6 sm:pb-16"
         style={{ opacity }}
       >
         {/* Logo: stor, messingramme + mørk bakplate så svart/hvitt-emblemet synes */}
@@ -244,7 +244,7 @@ export default function Hero() {
           transition={{ duration: 1, delay: 0.5 }}
           className="mb-4"
         >
-          <h1 className="font-display text-[clamp(2.85rem,11vw,9rem)] font-light leading-[0.9] tracking-tight text-white">
+          <h1 className="font-display text-[clamp(2rem,8vw,9rem)] sm:text-[clamp(2.85rem,11vw,9rem)] font-light leading-[0.9] tracking-tight text-white">
             Old{' '}
             <span className="italic text-brass-gradient" style={{
               background: 'linear-gradient(135deg, #c9a66b 0%, #f0d898 40%, #a07840 70%, #c9a66b 100%)',
@@ -256,7 +256,7 @@ export default function Hero() {
               Sailor
             </span>
           </h1>
-          <div className="font-serif text-[clamp(1.2rem,3vw,2.2rem)] text-white/60 tracking-[0.3em] uppercase font-light mt-2">
+          <div className="font-serif text-[clamp(0.7rem,2.75vw,2.2rem)] sm:text-[clamp(1.2rem,3vw,2.2rem)] text-white/60 tracking-[0.28em] sm:tracking-[0.3em] uppercase font-light mt-1 sm:mt-2">
             Barbershop
           </div>
         </motion.div>
