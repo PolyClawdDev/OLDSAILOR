@@ -35,7 +35,7 @@ export default function Navbar() {
             : 'bg-transparent border-b border-transparent'
         }`}
       >
-        <div className="max-w-7xl mx-auto h-[64px] px-4 sm:px-6 flex items-center justify-between gap-2">
+        <div className="max-w-7xl mx-auto h-[56px] sm:h-[64px] px-4 sm:px-6 flex items-center justify-between gap-2">
           {/* Logo */}
           <a href="#hjem" className="flex items-center gap-3 group">
             <motion.div
@@ -53,13 +53,13 @@ export default function Navbar() {
                   <img
                     src={BRAND_LOGO_SRC}
                     alt="Old Sailor Barbershop"
-                    className="w-10 h-10 rounded-full object-cover block group-hover:brightness-110 transition-all"
+                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full object-cover block group-hover:brightness-110 transition-all"
                   />
                 </div>
               </div>
             </motion.div>
             <div className="drop-shadow-[0_2px_8px_rgba(0,0,0,0.55)] leading-none">
-              <span className="font-serif text-base sm:text-lg font-bold text-white tracking-wide">Old Sailor</span>
+              <span className="font-serif text-[15px] sm:text-lg font-bold text-white tracking-wide">Old Sailor</span>
               <span className="text-[#c9a66b] ml-1 text-[10px] sm:text-xs tracking-[0.2em] uppercase font-light hidden sm:inline"> Barbershop</span>
             </div>
           </a>
