@@ -4,13 +4,9 @@ import { Anchor, Star, ChevronDown } from 'lucide-react';
 import { BRAND_LOGO_SRC } from '../branding';
 import { OFFICIAL_BOOKING_HREF } from '../officialBooking';
 
-/**
- * Samme klipp som `BACKROUND.mov`, men Chrome krever H.264 i `.mp4` i `<video>`.
- * `BACKROUND.mp4` genereres fra .mov med `npm run video:chrome` (ffmpeg).
- */
+/** H.264 MP4 — plays on all browsers (Chrome, Firefox, Safari, Edge, iOS, Android). */
 const HERO_VIDEO_SOURCES = [
   { src: '/BACKROUND.mp4', type: 'video/mp4' },
-  { src: '/BACKROUND.mov', type: 'video/quicktime' },
 ] as const;
 
 /** Kun ved feil (video-elementet har ikke poster — Chrome holdt ofte fast på poster-bildet uten at play() startet). */
