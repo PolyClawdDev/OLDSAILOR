@@ -31,8 +31,8 @@ export default function Navbar() {
         transition={{ duration: 0.8, delay: 0.2, ease: [0.43, 0.13, 0.23, 0.96] }}
         className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 ${
           scrolled
-            ? 'bg-[#0a0a0a]/95 backdrop-blur-xl border-b border-[#c9a66b]/10 py-3'
-            : 'bg-transparent py-5'
+            ? 'bg-[#070c16]/62 backdrop-blur-2xl border-b border-[#c9a66b]/18 shadow-[0_10px_35px_rgba(0,0,0,0.45)] py-3'
+            : 'bg-transparent border-b border-transparent py-4 sm:py-5'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between gap-2">
@@ -58,9 +58,9 @@ export default function Navbar() {
                 </div>
               </div>
             </motion.div>
-            <div>
-              <span className="font-serif text-xl font-bold text-white tracking-wide">Old Sailor</span>
-              <span className="text-[#c9a66b] ml-1 text-xs tracking-[0.2em] uppercase font-light hidden sm:inline"> Barbershop</span>
+            <div className="drop-shadow-[0_2px_8px_rgba(0,0,0,0.55)]">
+              <span className="font-serif text-lg sm:text-xl font-bold text-white tracking-wide">Old Sailor</span>
+              <span className="text-[#c9a66b] ml-1 text-[10px] sm:text-xs tracking-[0.2em] uppercase font-light hidden sm:inline"> Barbershop</span>
             </div>
           </a>
 
@@ -70,10 +70,10 @@ export default function Navbar() {
               <a
                 key={link.href}
                 href={link.href}
-                className={`text-sm tracking-wider font-medium transition-all duration-300 relative group ${
+                className={`text-sm tracking-wider font-medium transition-all duration-300 relative group drop-shadow-[0_1px_6px_rgba(0,0,0,0.55)] ${
                   activeSection === link.href.slice(1)
                     ? 'text-[#c9a66b]'
-                    : 'text-white/70 hover:text-white'
+                    : 'text-white/85 hover:text-white'
                 }`}
               >
                 {link.label}
