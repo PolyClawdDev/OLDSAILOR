@@ -1,5 +1,6 @@
-import { motion, useInView } from 'framer-motion';
-import { useRef, useState } from 'react';
+import { motion, AnimatePresence, useInView } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
+import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const galleryItems = [
   {
@@ -78,7 +79,15 @@ const galleryItems = [
 
 const categories = ['Alle', 'Klipp', 'Skjegg', 'Interiør'];
 
-function GalleryCard({ item, index }: { item: typeof galleryItems[0]; index: number }) {
+function GalleryCard({
+  item,
+  index,
+  onOpen,
+}: {
+  item: typeof galleryItems[0];
+  index: number;
+  onOpen: (item: typeof galleryItems[0]) => void;
+}) {
   const [hovered, setHovered] = useState(false);
 
   const aspectClass = {
@@ -91,7 +100,10 @@ function GalleryCard({ item, index }: { item: typeof galleryItems[0]; index: num
     item.aspect === 'tall' ? 'min-h-[240px] sm:min-h-[400px]' : 'min-h-[200px] sm:min-h-[220px]';
 
   return (
-    <motion.div
+    <motion.button
+      type="button"
+      onClick={() => onOpen(item)}
+      aria-label={`Åpne bilde: ${item.label}`}
       className={`relative overflow-hidden rounded-sm cursor-pointer ${aspectClass} ${minH}`}
       initial={{ opacity: 0, scale: 0.95 }}
       whileInView={{ opacity: 1, scale: 1 }}
@@ -153,12 +165,13 @@ function GalleryCard({ item, index }: { item: typeof galleryItems[0]; index: num
         animate={{ borderColor: hovered ? 'rgba(201,166,107,0.4)' : 'rgba(201,166,107,0)' }}
         transition={{ duration: 0.3 }}
       />
-    </motion.div>
+    </motion.button>
   );
 }
 
 export default function Gallery() {
   const [activeCategory, setActiveCategory] = useState('Alle');
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const headRef = useRef<HTMLDivElement>(null);
   const headInView = useInView(headRef, { once: true, margin: '-100px' });
 
@@ -166,6 +179,37 @@ export default function Gallery() {
     activeCategory === 'Alle'
       ? galleryItems
       : galleryItems.filter((item) => item.category === activeCategory);
+
+  const selectedItem = lightboxIndex !== null ? visibleItems[lightboxIndex] : null;
+
+  const closeLightbox = () => setLightboxIndex(null);
+  const openLightbox = (item: (typeof galleryItems)[number]) => {
+    const idx = visibleItems.findIndex((v) => v.id === item.id);
+    if (idx >= 0) setLightboxIndex(idx);
+  };
+  const goPrev = () => {
+    if (lightboxIndex === null || visibleItems.length === 0) return;
+    setLightboxIndex((lightboxIndex - 1 + visibleItems.length) % visibleItems.length);
+  };
+  const goNext = () => {
+    if (lightboxIndex === null || visibleItems.length === 0) return;
+    setLightboxIndex((lightboxIndex + 1) % visibleItems.length);
+  };
+
+  useEffect(() => {
+    if (lightboxIndex === null) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') goPrev();
+      if (e.key === 'ArrowRight') goNext();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [lightboxIndex, visibleItems.length]);
+
+  useEffect(() => {
+    setLightboxIndex(null);
+  }, [activeCategory]);
 
   return (
     <section id="galleri" className="relative py-16 sm:py-24 md:py-28 bg-[#080808] overflow-hidden">
@@ -237,7 +281,9 @@ export default function Gallery() {
               Ingen bilder i denne kategorien.
             </p>
           ) : (
-            visibleItems.map((item, i) => <GalleryCard key={item.id} item={item} index={i} />)
+            visibleItems.map((item, i) => (
+              <GalleryCard key={item.id} item={item} index={i} onOpen={openLightbox} />
+            ))
           )}
         </div>
 
@@ -267,6 +313,75 @@ export default function Gallery() {
           </a>
         </motion.div>
       </div>
+
+      <AnimatePresence>
+        {selectedItem && (
+          <motion.div
+            className="fixed inset-0 z-[120] bg-black/85 backdrop-blur-md p-4 sm:p-6"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={closeLightbox}
+          >
+            <button
+              type="button"
+              aria-label="Lukk bildevisning"
+              onClick={closeLightbox}
+              className="absolute top-4 right-4 sm:top-6 sm:right-6 w-11 h-11 rounded-full border border-white/20 bg-black/45 text-white/80 hover:text-white hover:border-[#c9a66b]/50 flex items-center justify-center touch-manipulation"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            {visibleItems.length > 1 && (
+              <>
+                <button
+                  type="button"
+                  aria-label="Forrige bilde"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    goPrev();
+                  }}
+                  className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full border border-white/20 bg-black/45 text-white/80 hover:text-white hover:border-[#c9a66b]/50 flex items-center justify-center touch-manipulation"
+                >
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
+                <button
+                  type="button"
+                  aria-label="Neste bilde"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    goNext();
+                  }}
+                  className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full border border-white/20 bg-black/45 text-white/80 hover:text-white hover:border-[#c9a66b]/50 flex items-center justify-center touch-manipulation"
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+              </>
+            )}
+
+            <motion.div
+              className="h-full w-full flex items-center justify-center"
+              initial={{ scale: 0.97, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.98, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <figure className="max-w-[95vw] sm:max-w-[88vw]">
+                <img
+                  src={selectedItem.src}
+                  alt={selectedItem.label}
+                  className="max-h-[78vh] sm:max-h-[82vh] w-auto max-w-full object-contain rounded-sm border border-white/10"
+                />
+                <figcaption className="mt-3 text-center">
+                  <h3 className="font-serif text-white text-lg">{selectedItem.label}</h3>
+                  <p className="text-white/60 text-xs tracking-wide mt-1">{selectedItem.sublabel}</p>
+                </figcaption>
+              </figure>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
