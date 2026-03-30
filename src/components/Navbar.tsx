@@ -29,13 +29,13 @@ export default function Navbar() {
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8, delay: 0.2, ease: [0.43, 0.13, 0.23, 0.96] }}
-        className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 ${
+        className={`fixed top-0 left-0 right-0 z-[100] overflow-hidden transition-all duration-500 ${
           scrolled
-            ? 'bg-[#070c16]/62 backdrop-blur-2xl border-b border-[#c9a66b]/18 shadow-[0_10px_35px_rgba(0,0,0,0.45)] py-3'
-            : 'bg-transparent border-b border-transparent py-4 sm:py-5'
+            ? 'bg-[#070c16]/62 backdrop-blur-2xl border-b border-[#c9a66b]/18 shadow-[0_10px_35px_rgba(0,0,0,0.45)] py-2.5'
+            : 'bg-transparent border-b border-transparent py-3.5'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between gap-2">
+        <div className="max-w-7xl mx-auto h-[58px] px-4 sm:px-6 flex items-center justify-between gap-2">
           {/* Logo */}
           <a href="#hjem" className="flex items-center gap-3 group">
             <motion.div
@@ -44,7 +44,7 @@ export default function Navbar() {
               transition={{ type: 'spring', stiffness: 300 }}
             >
               <div
-                className="rounded-full p-[2px] shadow-[0_0_20px_rgba(201,166,107,0.35)]"
+                className="rounded-full p-[2px] shadow-[0_0_12px_rgba(201,166,107,0.22)]"
                 style={{
                   background: 'linear-gradient(145deg, #e8c547, #c9a66b, #6b4a1e)',
                 }}
@@ -53,13 +53,13 @@ export default function Navbar() {
                   <img
                     src={BRAND_LOGO_SRC}
                     alt="Old Sailor Barbershop"
-                    className="w-11 h-11 sm:w-12 sm:h-12 rounded-full object-cover block group-hover:brightness-110 transition-all"
+                    className="w-10 h-10 sm:w-10 sm:h-10 rounded-full object-cover block group-hover:brightness-110 transition-all"
                   />
                 </div>
               </div>
             </motion.div>
-            <div className="drop-shadow-[0_2px_8px_rgba(0,0,0,0.55)]">
-              <span className="font-serif text-lg sm:text-xl font-bold text-white tracking-wide">Old Sailor</span>
+            <div className="drop-shadow-[0_2px_8px_rgba(0,0,0,0.55)] leading-none">
+              <span className="font-serif text-base sm:text-lg font-bold text-white tracking-wide">Old Sailor</span>
               <span className="text-[#c9a66b] ml-1 text-[10px] sm:text-xs tracking-[0.2em] uppercase font-light hidden sm:inline"> Barbershop</span>
             </div>
           </a>
