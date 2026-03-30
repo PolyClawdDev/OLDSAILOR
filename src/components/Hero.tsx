@@ -184,7 +184,7 @@ export default function Hero() {
 
       {/* Main content — z-20; luft under fixed nav + safe area på mobil */}
       <motion.div
-        className="relative z-20 text-center px-4 sm:px-6 max-w-5xl mx-auto w-full pt-[max(3.25rem,calc(env(safe-area-inset-top,0px)+2.35rem))] pb-10 sm:pt-6 sm:pb-16"
+        className="relative z-20 text-center px-4 sm:px-6 max-w-5xl mx-auto w-full pt-[max(2.75rem,calc(env(safe-area-inset-top,0px)+2rem))] pb-10 sm:pt-6 sm:pb-16"
         style={{ opacity }}
       >
         {/* Logo: stor, messingramme + mørk bakplate så svart/hvitt-emblemet synes */}
