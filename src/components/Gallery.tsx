@@ -100,11 +100,14 @@ function GalleryCard({
     item.aspect === 'tall' ? 'min-h-[240px] sm:min-h-[400px]' : 'min-h-[200px] sm:min-h-[220px]';
 
   return (
-    <motion.button
-      type="button"
-      onClick={() => onOpen(item)}
+    <motion.a
+      href={item.src}
+      onClick={(e) => {
+        e.preventDefault();
+        onOpen(item);
+      }}
       aria-label={`Åpne bilde: ${item.label}`}
-      className={`relative overflow-hidden rounded-sm cursor-pointer ${aspectClass} ${minH}`}
+      className={`relative overflow-hidden rounded-sm cursor-pointer block pointer-events-auto ${aspectClass} ${minH}`}
       initial={{ opacity: 0, scale: 0.95 }}
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true, margin: '-50px' }}
@@ -165,7 +168,7 @@ function GalleryCard({
         animate={{ borderColor: hovered ? 'rgba(201,166,107,0.4)' : 'rgba(201,166,107,0)' }}
         transition={{ duration: 0.3 }}
       />
-    </motion.button>
+    </motion.a>
   );
 }
 
