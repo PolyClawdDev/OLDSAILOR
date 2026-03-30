@@ -1,0 +1,308 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-black: #0a0a0a;
+  --color-navy: #0b1e3d;
+  --color-brass: #c9a66b;
+  --color-brass-light: #e0c28a;
+  --color-brass-shine: #f0d898;
+  --color-teal: #0a5c5c;
+  --color-wood: #4a2e1a;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  background-color: #0a0a0a;
+  color: #ffffff;
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+  cursor: default;
+  padding-left: env(safe-area-inset-left, 0px);
+  padding-right: env(safe-area-inset-right, 0px);
+}
+
+/* Raskere trykk på mobil, mindre 300 ms delay */
+button,
+a[role='button'],
+.touch-manipulation {
+  touch-action: manipulation;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #c9a66b, #a07840);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #e0c28a;
+}
+
+/* Brass text gradient */
+.text-brass-gradient {
+  background: linear-gradient(135deg, #c9a66b 0%, #f0d898 40%, #a07840 70%, #c9a66b 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-brass-gradient-animated {
+  background: linear-gradient(135deg, #c9a66b 0%, #f0d898 40%, #a07840 70%, #c9a66b 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s linear infinite;
+}
+
+/* Brass button */
+.btn-brass {
+  background: linear-gradient(135deg, #a07840 0%, #c9a66b 30%, #f0d898 50%, #c9a66b 70%, #a07840 100%);
+  background-size: 200% auto;
+  color: #0a0a0a;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-brass::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.btn-brass:hover::before {
+  left: 100%;
+}
+
+.btn-brass:hover {
+  background-position: right center;
+  box-shadow: 0 0 30px rgba(201, 166, 107, 0.5), 0 0 60px rgba(201, 166, 107, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Glass card */
+.glass-card {
+  background: rgba(11, 30, 61, 0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(201, 166, 107, 0.15);
+}
+
+/* Noise texture overlay */
+.noise-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  z-index: 1;
+}
+
+/* Wave animation */
+@keyframes shimmer {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(2deg); }
+}
+
+@keyframes compassSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes ropeSway {
+  0%, 100% { transform: rotate(-5deg) translateX(0); }
+  50% { transform: rotate(5deg) translateX(10px); }
+}
+
+@keyframes waveAnim {
+  0% { d: path("M0,50 C150,80 350,20 500,50 C650,80 850,20 1000,50 L1000,100 L0,100 Z"); }
+  50% { d: path("M0,50 C150,20 350,80 500,50 C650,20 850,80 1000,50 L1000,100 L0,100 Z"); }
+  100% { d: path("M0,50 C150,80 350,20 500,50 C650,80 850,20 1000,50 L1000,100 L0,100 Z"); }
+}
+
+/* Divider rope style */
+.rope-divider {
+  height: 2px;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 4px,
+    rgba(201, 166, 107, 0.4) 4px,
+    rgba(201, 166, 107, 0.4) 8px
+  );
+}
+
+/* Section heading line */
+.section-line {
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #c9a66b, transparent);
+}
+
+/* Custom cursor */
+.cursor-brass {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Ccircle cx='10' cy='10' r='5' fill='%23c9a66b'/%3E%3C/svg%3E") 10 10, auto;
+}
+
+/* Masonry grid helper */
+.masonry-grid {
+  columns: 3;
+  column-gap: 1.5rem;
+}
+
+.masonry-item {
+  break-inside: avoid;
+  margin-bottom: 1.5rem;
+}
+
+/* Responsive masonry */
+@media (max-width: 768px) {
+  .masonry-grid {
+    columns: 1;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .masonry-grid {
+    columns: 2;
+  }
+}
+
+/* Star rating */
+.star-filled {
+  color: #c9a66b;
+  filter: drop-shadow(0 0 4px rgba(201, 166, 107, 0.5));
+}
+
+/* Horizontal scroll container */
+.horizontal-scroll {
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.horizontal-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar (category tabs, carousels) */
+.scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+/* Smooth transition for all interactive elements */
+a, button {
+  transition: all 0.3s ease;
+}
+
+/* Brass border animation */
+@keyframes borderFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.brass-border-animated {
+  position: relative;
+}
+
+.brass-border-animated::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(90deg, #a07840, #f0d898, #c9a66b, #f0d898, #a07840);
+  background-size: 300% 100%;
+  border-radius: inherit;
+  z-index: -1;
+  animation: borderFlow 4s linear infinite;
+}
+
+/* Service card hover */
+.service-card {
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.service-card:hover {
+  transform: translateY(-8px) scale(1.02);
+}
+
+/* Page loader */
+.loader-overlay {
+  position: fixed;
+  inset: 0;
+  background: #0a0a0a;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Parallax container */
+.parallax-container {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+/* Glow effects */
+.glow-brass {
+  filter: drop-shadow(0 0 8px rgba(201,166,107,0.6));
+}
+
+.glow-teal {
+  filter: drop-shadow(0 0 8px rgba(10,92,92,0.8));
+}
+
+/* Mobile floating button — over innhold + safe area (hjem-indikator) */
+.floating-book-btn {
+  position: fixed;
+  right: max(1rem, env(safe-area-inset-right, 0px));
+  bottom: max(1.25rem, calc(env(safe-area-inset-bottom, 0px) + 0.5rem));
+  z-index: 110;
+  border-radius: 50px;
+}
+
+/* Backdrop pattern */
+.nautical-pattern {
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(201,166,107,0.03) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(10,92,92,0.05) 0%, transparent 50%);
+}
